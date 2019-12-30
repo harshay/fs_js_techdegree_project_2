@@ -5,6 +5,7 @@ FSJS project 2 - List Filter and Pagination
    
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
+//change test
 
 /*** 
    Add your global variables that store the DOM elements you will 
