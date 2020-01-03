@@ -23,31 +23,7 @@ const studDiv = studUl.parentNode;
 
 /**********************************************************************************************************/
 
-// function will display first 10 student items when the page loads
-const loadPage = () => {
 
-//display first 10 students on the page when the page loads
-   const firstPage = 1; 
-//highest student number (from the array) displayed on the selected page
-   const upperLimit   = (firstPage * 10) - 1;  
-//lowest  student number (from the array) displayed on the selected page
-   const lowerLimit   = (upperLimit - 9); // 
-//for loop will loop through all student items and only display the first 10 items on the page
-   for(let i = 0; i < studNum; i += 1) {
-
-      let studListElem = studList[i];
-
-      if(i >= lowerLimit  && i <= upperLimit)  {    
-         studListElem.style.display = ''; 
-      }
-      else {
-         studListElem.style.display = 'none';
-      }      
-   }
-}
-
-//run load page function
-loadPage();
 /**********************************************************************************************************/
 
 // function will display 10 stuents items from the page selected
@@ -72,6 +48,9 @@ const showPage = (selectedPage) => {
          }      
       }
    }
+
+   //on page load
+   showPage(1);
 
 
 /**********************************************************************************************************/
