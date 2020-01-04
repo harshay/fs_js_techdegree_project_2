@@ -21,7 +21,8 @@ const studUl = document.getElementsByTagName("ul")[0];
 const studDiv = studUl.parentNode; 
 
 /**********************************************************************************************************/
-// function will display a maximum of 10 stuents items from the page selected
+// create function which will display a maximum of 10 stuent list items from the page selected
+
 const showPage = (selectedPage) => {
 
    //display a maximum of 10 students on the page when the page loads
@@ -49,6 +50,7 @@ const showPage = (selectedPage) => {
    showPage(1);
 
 /**********************************************************************************************************/
+//create pagination/links
 
 const navDiv = document.createElement("div"); 
 studDiv.appendChild(navDiv); 
@@ -78,9 +80,21 @@ for(let i = 0; i < pagesNum; i += 1) {
 /**********************************************************************************************************/
 //add search functionality 
 
+//create div which will contain the search box
+const searchDiv = document.createElement("div"); 
+searchDiv.classNAme = "search-div";
 
+//get parent element to which the search div will be inserted
+const searchParent = document.getElementsByClassName("page-header cf")[0]; 
 
+//append search div to parent element
+searchParent.appendChild(searchDiv); 
 
+//create div which will contain the search box
+const searchBox = document.createElement("input"); 
+searchBox.type = "text";
 
+//append search box to search div 
+searchDiv.appendChild(searchBox); 
 
 /**********************************************************************************************************/
