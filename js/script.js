@@ -97,4 +97,13 @@ searchBox.type = "text";
 //append search box to search div 
 searchDiv.appendChild(searchBox); 
 
+
+
+
+//create search button
+let searchButton = document.createElement('button'); 
+searchButton.textContent = "Search";
+//append list item to navigation div
+searchDiv.appendChild(searchButton);
+
 /**********************************************************************************************************/
