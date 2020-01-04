@@ -15,7 +15,7 @@ const studNum   = studList.length;
 const pagesNum  = Math.ceil((studNum/10)); 
 //get class that contains the student list html
 const listDiv   = document.getElementsByClassName("student-list")[0]; 
-//capture div element ; used for appending buttons
+//capture div element ; used for getting ul tag's parent element
 const studUl = document.getElementsByTagName("ul")[0];
 //get parent element to which navigation/pagination buttons will be appended
 const studDiv = studUl.parentNode; 
@@ -23,19 +23,17 @@ const studDiv = studUl.parentNode;
 
 /**********************************************************************************************************/
 
-
-/**********************************************************************************************************/
-
-// function will display 10 stuents items from the page selected
+// function will display a maximum of 10 stuents items from the page selected
 const showPage = (selectedPage) => {
 
-   //display first 10 students on the page when the page loads
+   //display a maximum of 10 students on the page when the page loads
       const firstPage = selectedPage; 
    //highest student number (from the array) displayed on the selected page
       const upperLimit   = (firstPage * 10) - 1;  
    //lowest  student number (from the array) displayed on the selected page
       const lowerLimit   = (upperLimit - 9); // 
-   //for loop will loop through all student items and only display the items on the selected page
+   //for loop will loop through all student items and only display the items within the calculated
+   //limits above which change depending on the page selected
       for(let i = 0; i < studNum; i += 1) {
    
          let studListElem = studList[i];
@@ -49,34 +47,41 @@ const showPage = (selectedPage) => {
       }
    }
 
-   //on page load
+/**********************************************************************************************************/
+   //on page load display first 10 items from the list
    showPage(1);
-
 
 /**********************************************************************************************************/
 
 
-const navButton = document.createElement("button"); 
+
+const navDiv = document.createElement("div"); 
+studDiv.appendChild(navDiv); 
+navDiv.className = "pagination"; 
 
 //loop will create all the buttons required for the navigation & apply click event listener to each
 for(let i = 0; i < pagesNum; i += 1) {
 
-   //create button
-   let navButton = document.createElement('button'); 
-   //add page number to the button
-   navButton.textContent =  (i + 1);
-   //append button to the div 
-   studDiv.appendChild(navButton);
+   //create list item
+   let navListItem = document.createElement('li'); 
+   //append list item to navigation div
+   navDiv.appendChild(navListItem);
+   //create a tag which will trigger the showPage function depending on the selecte page
+   let navListLink = document.createElement('a');
+   navListLink.textContent =  (i + 1);   
    //add click event listener which triggers a function based on the page selected
-   navButton.addEventListener('click', () => { 
+   navListLink.addEventListener('click', () => { 
 
-      showPage(navButton.textContent); 
+      showPage(navListLink.textContent);
+      
 
-   })
+   });
+
+   navListItem.appendChild(navListLink);  
+ 
        
 }
 
 
-// studDiv.className = "pagination";
 
 /**********************************************************************************************************/
