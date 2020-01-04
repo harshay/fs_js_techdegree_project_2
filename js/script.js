@@ -20,9 +20,7 @@ const studUl = document.getElementsByTagName("ul")[0];
 //get parent element to which navigation/pagination buttons will be appended
 const studDiv = studUl.parentNode; 
 
-
 /**********************************************************************************************************/
-
 // function will display a maximum of 10 stuents items from the page selected
 const showPage = (selectedPage) => {
 
@@ -46,14 +44,11 @@ const showPage = (selectedPage) => {
          }      
       }
    }
-
 /**********************************************************************************************************/
    //on page load display first 10 items from the list
    showPage(1);
 
 /**********************************************************************************************************/
-
-
 
 const navDiv = document.createElement("div"); 
 studDiv.appendChild(navDiv); 
@@ -78,9 +73,13 @@ for(let i = 0; i < pagesNum; i += 1) {
    });
 
    navListItem.appendChild(navListLink);  
- 
-       
+
 }
+/**********************************************************************************************************/
+//add search functionality 
+
+
+
 
 
 
