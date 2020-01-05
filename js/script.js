@@ -84,6 +84,9 @@ for(let i = 0; i < pagesNum; i += 1) {
    navListItem.appendChild(navListLink);  
 
 }
+
+
+
 /**********************************************************************************************************/
 //add search functionality 
 
