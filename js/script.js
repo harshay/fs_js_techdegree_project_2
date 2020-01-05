@@ -1,6 +1,8 @@
 /******************************************
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
+Creator Name : Harshay Raipancholi
+Contact : rharshay@gmail.com
 ******************************************/
 
 //Notes
@@ -65,12 +67,17 @@ for(let i = 0; i < pagesNum; i += 1) {
    navDiv.appendChild(navListItem);
    //create a tag which will trigger the showPage function depending on the selecte page
    let navListLink = document.createElement('a');
+      //add class name to every nav link
+   navListLink.id = "nav-link";
    navListLink.textContent =  (i + 1);   
    //add click event listener which triggers a function based on the page selected
-   navListLink.addEventListener('click', () => { 
+   navListLink.addEventListener('click', (event) => { 
 
-      showPage(navListLink.textContent);
-      
+
+      //add styling to the link that is clicked
+      event.target.className = "active"; 
+
+      showPage(navListLink.textContent);      
 
    });
 
@@ -82,7 +89,7 @@ for(let i = 0; i < pagesNum; i += 1) {
 
 //create div which will contain the search box
 const searchDiv = document.createElement("div"); 
-searchDiv.classNAme = "search-div";
+searchDiv.className = "student-search";
 
 //get parent element to which the search div will be inserted
 const searchParent = document.getElementsByClassName("page-header cf")[0]; 
@@ -96,9 +103,6 @@ searchBox.type = "text";
 
 //append search box to search div 
 searchDiv.appendChild(searchBox); 
-
-
-
 
 //create search button
 let searchButton = document.createElement('button'); 
