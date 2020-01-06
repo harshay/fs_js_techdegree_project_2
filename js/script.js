@@ -11,6 +11,8 @@ Contact : rharshay@gmail.com
 
 //Get all student list elements by class name 
 const studList  = document.getElementsByClassName("student-item cf"); 
+//Get all tags containing student names (used for search functionality)
+const studNameList  = document.getElementsByTagName("h3");
 //number of students on the page 
 const studNum   = studList.length; 
 //total number of pages to split the list by
@@ -21,6 +23,7 @@ const listDiv   = document.getElementsByClassName("student-list")[0];
 const studUl = document.getElementsByTagName("ul")[0];
 //get parent element to which navigation/pagination buttons will be appended
 const studDiv = studUl.parentNode; 
+
 
 /**********************************************************************************************************/
 // create function which will display a maximum of 10 stuent list items from the page selected
@@ -61,32 +64,50 @@ navDiv.className = "pagination";
 //loop will create all the buttons required for the navigation & apply click event listener to each
 for(let i = 0; i < pagesNum; i += 1) {
 
+
    //create list item
    let navListItem = document.createElement('li'); 
    //append list item to navigation div
    navDiv.appendChild(navListItem);
    //create a tag which will trigger the showPage function depending on the selecte page
    let navListLink = document.createElement('a');
-      //add class name to every nav link
-   navListLink.id = "nav-link";
+     
    navListLink.textContent =  (i + 1);   
-   //add click event listener which triggers a function based on the page selected
-   navListLink.addEventListener('click', (event) => { 
+   
+   if(i === 0)  {
+      navListLink.className = "active"; 
+   }
+
+   navListItem.appendChild(navListLink);     
+
+};
 
 
-      //add styling to the link that is clicked
-      event.target.className = "active"; 
+/**********************************************************************************************************/
+//add click event listner to all nav links
 
-      showPage(navListLink.textContent);      
+// get all links by tag name
+const links = document.getElementsByTagName("a"); 
 
-   });
+for(let i = 0; i < links.length; i += 1) {
 
-   navListItem.appendChild(navListLink);  
+//add click event listener which triggers a function based on the page selected
+links[i].addEventListener('click', (event) => { 
+   
+   //remove class names from all elements
+   for(let j = 0; j < links.length; j += 1) {
+      links[j].className = "";
+   };
 
-}
+   //run show page function based on the selected page number
+   showPage(links[i].textContent);
 
+   //change class name to active for 
+   event.target.className = "active";  
 
+});
 
+};
 /**********************************************************************************************************/
 //add search functionality 
 
@@ -112,5 +133,28 @@ let searchButton = document.createElement('button');
 searchButton.textContent = "Search";
 //append list item to navigation div
 searchDiv.appendChild(searchButton);
+
+
+// element index numbers which match the text which was searched will be pushed to this array
+let searchMatch = []; 
+
+searchButton.addEventListener('click', (event) => {  
+
+   for(let k = 0; k < studNameList; k += 1) {   
+
+      if(studNameList[k].textContent.toUpperCase.includes(searchBox.value.toUpperCase)) {;
+          searchMatch.push(k);
+         }
+   }
+
+   console.log(searchMatch);
+
+});
+
+// for loop to loop through all h3 values / names, push element number to an array if a match is found (within each iteration
+//of the loop)
+
+//use the element number array and another for loop to loop through and build/concatenate all html student
+//all elements that match
 
 /**********************************************************************************************************/
