@@ -137,18 +137,33 @@ searchDiv.appendChild(searchButton);
 
 // element index numbers which match the text which was searched will be pushed to this array
 let searchMatch = []; 
+let searchHtml  = ''; 
 
 searchButton.addEventListener('click', (event) => {  
-
-   for(let k = 0; k < studNameList; k += 1) {   
-
-      if(studNameList[k].textContent.toUpperCase.includes(searchBox.value.toUpperCase)) {;
-          searchMatch.push(k);
-         }
-   }
    
+// clear array for a new search
+searchMatch = []; 
+// clear html that contains the matched search elements that will be inserted
+searchHtml = ''; 
 
-   console.log(searchMatch);
+// pick up all student list elements that match and push their index number to an array
+   for(let k = 0; k < studNameList.length; k += 1) {   
+
+      if(studNameList[k].textContent.toUpperCase().includes(searchBox.value.toUpperCase())) {;
+          searchMatch.push(k);
+         };
+   };
+
+// construct html using student list items which match the search text
+   for(let l = 0; l < searchMatch.length; l += 1) {   
+
+      searchHtml = searchHtml + studList[searchMatch[l]];
+
+   };
+
+   studUl.innerHTML = searchHtml; 
+
+   //console.log(searchHtml);
 
 });
 
