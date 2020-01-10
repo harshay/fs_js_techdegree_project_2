@@ -13,19 +13,24 @@ Contact : rharshay@gmail.com
 const studList  = document.getElementsByClassName("student-item cf"); 
 //get class that contains the student list html
 const listDiv   = document.getElementsByClassName("student-list")[0]; 
-
+//Get all tags containing student names (used for search functionality)
+const studNameList  = document.getElementsByTagName("h3");
 
 /**********************************************************************************************************/
 // create function which will display a maximum of 10 stuent list items from the page selected
 
 const showPage = (selectedPage,listIn) => {
 
+   //if (document.exists(listDiv)
+
    //display a maximum of 10 students on the page when the page loads
       const firstPage = selectedPage; 
    //highest student number (from the array) displayed on the selected page
       const upperLimit   = (firstPage * 10) - 1;  
    //lowest  student number (from the array) displayed on the selected page
-      const lowerLimit   = (upperLimit - 9); // 
+      const lowerLimit   = (upperLimit - 9); 
+   //number of students on the page 
+      let studNum   = listIn.length; 
    //for loop will loop through all student items and only display the items within the calculated
    //limits above which change depending on the page selected
       for(let i = 0; i < studNum; i += 1) {
@@ -50,18 +55,18 @@ const showPage = (selectedPage,listIn) => {
 
 const pagination = (listIn) => {   
 
-//capture div element ; used for getting ul tag's parent element
-const studUl = document.getElementsByTagName("ul")[0];
-//get parent element to which navigation/pagination buttons will be appended
-const studDiv = studUl.parentNode; 
-//number of students on the page 
-const studNum   = listIn.length; 
-//total number of pages to split the list by
-const pagesNum  = Math.ceil((studNum/10)); 
-////////////////////////////////////////////////////////
-const navDiv = document.createElement("div"); 
-studDiv.appendChild(navDiv); 
-navDiv.className = "pagination"; 
+   //capture div element ; used for getting ul tag's parent element
+   const studUl = document.getElementsByTagName("ul")[0];
+   //get parent element to which navigation/pagination buttons will be appended
+   const studDiv = studUl.parentNode; 
+   //number of students on the page 
+   let studNum   = listIn.length; 
+   //total number of pages to split the list by
+   const pagesNum  = Math.ceil((studNum/10)); 
+   ////////////////////////////////////////////////////////
+   const navDiv = document.createElement("div"); 
+   studDiv.appendChild(navDiv); 
+   navDiv.className = "pagination"; 
 
 //loop will create all the buttons required for the navigation & apply click event listener to each
    for(let i = 0; i < pagesNum; i += 1) {
@@ -98,20 +103,20 @@ const links = document.getElementsByTagName("a");
 for(let i = 0; i < links.length; i += 1) {
 
 //add click event listener which triggers a function based on the page selected
-links[i].addEventListener('click', (event) => { 
-   
-   //remove class names from all elements
-   for(let j = 0; j < links.length; j += 1) {
-      links[j].className = "";
-   };
+   links[i].addEventListener('click', (event) => { 
+      
+      //remove class names from all elements
+      for(let j = 0; j < links.length; j += 1) {
+         links[j].className = "";
+      };
 
-   //run show page function based on the selected page number
-   showPage(links[i].textContent);
+      //run show page function based on the selected page number
+      showPage(links[i].textContent,studList);
 
-   //change class name to active for 
-   event.target.className = "active";  
+      //change class name to active for 
+      event.target.className = "active";  
 
-});
+   });
 
 };
 /**********************************************************************************************************/
@@ -157,15 +162,11 @@ searchMatch = [];
          };
    };
 
-   console.log(searchMatch);
+   //alter show page and pagination functions based on student list elements which matched the search value
+   showPage(1,searchMatch);
+   pagination(searchMatch);
 
 
 });
-
-// for loop to loop through all h3 values / names, push element number to an array if a match is found (within each iteration
-//of the loop)
-
-//use the element number array and another for loop to loop through and build/concatenate all html student
-//all elements that match
 
 /**********************************************************************************************************/
