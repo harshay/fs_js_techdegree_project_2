@@ -163,7 +163,7 @@ if(pagin) {
 
 };
 
-document.getElementsByClassName("student-item cf").style.display = "none";
+studList.style.display = "none";
 
 
 // pick up all student list elements that match and push their index number to an array
