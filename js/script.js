@@ -21,7 +21,7 @@ const studNameList  = document.getElementsByTagName("h3");
 
 const showPage = (selectedPage,listIn) => {
 
-   //if (document.exists(listDiv)
+   //listDiv = ""; 
 
    //display a maximum of 10 students on the page when the page loads
       const firstPage = selectedPage; 
@@ -153,6 +153,18 @@ searchButton.addEventListener('click', (event) => {
    
 // clear array for a new search
 searchMatch = []; 
+
+
+const pagin   = document.getElementsByClassName("pagination")[0]; 
+
+if(pagin) { 
+
+ pagin.remove();
+
+};
+
+document.getElementsByClassName("student-item cf").style.display = "none";
+
 
 // pick up all student list elements that match and push their index number to an array
    for(let k = 0; k < studNameList.length; k += 1) {   
