@@ -3,15 +3,15 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 Creator Name : Harshay Raipancholi
 Contact : rharshay@gmail.com
+Targeted Project Level : Exceeds Expectation
 ******************************************/
 
-//Notes
 
 /**********************************************************************************************************/
 
-//Get all student list elements by class name 
+//Get all student list elements  
 const studList  = document.getElementsByClassName("student-item cf"); 
-//get class that contains the student list html
+//get element that contains the student list (html)
 const listDiv   = document.getElementsByClassName("student-list")[0]; 
 //Get all tags containing student names (used for search functionality)
 const studNameList  = document.getElementsByTagName("h3");
@@ -21,15 +21,14 @@ const studNameList  = document.getElementsByTagName("h3");
 
 const showPage = (selectedPage,listIn) => {
 
-   //listDiv = ""; 
-
-   //display a maximum of 10 students on the page when the page loads
+ 
+   //display a maximum of 10 students on the page when the page loads or when the page number is clicked
       const firstPage = selectedPage; 
    //highest student number (from the array) displayed on the selected page
       const upperLimit   = (firstPage * 10) - 1;  
    //lowest  student number (from the array) displayed on the selected page
       const lowerLimit   = (upperLimit - 9); 
-   //number of students on the page 
+   //calculate number of students on the page 
       let studNum   = listIn.length; 
    //for loop will loop through all student items and only display the items within the calculated
    //limits above which change depending on the page selected
@@ -50,7 +49,7 @@ const showPage = (selectedPage,listIn) => {
    showPage(1,studList);
 
 /**********************************************************************************************************/
-//create pagination/links
+//create pagination elements depending on the number of pages required
 
 
 const pagination = (listIn) => {   
@@ -64,11 +63,12 @@ const pagination = (listIn) => {
    //total number of pages to split the list by
    const pagesNum  = Math.ceil((studNum/10)); 
    ////////////////////////////////////////////////////////
+   //create div element which will contain pagination
    const navDiv = document.createElement("div"); 
    studDiv.appendChild(navDiv); 
    navDiv.className = "pagination"; 
 
-//loop will create all the buttons required for the navigation & apply click event listener to each
+//loop will create all the buttons required for the navigation 
    for(let i = 0; i < pagesNum; i += 1) {
 
       //create list item
@@ -98,27 +98,34 @@ pagination(studList);
 //add click event listner to all nav links
 
 // get all links by tag name
-const links = document.getElementsByTagName("a"); 
+const addLink = () => {
 
-for(let i = 0; i < links.length; i += 1) {
+   const links = document.getElementsByTagName("a"); 
 
-//add click event listener which triggers a function based on the page selected
-   links[i].addEventListener('click', (event) => { 
-      
-      //remove class names from all elements
-      for(let j = 0; j < links.length; j += 1) {
-         links[j].className = "";
-      };
+   for(let i = 0; i < links.length; i += 1) {
 
-      //run show page function based on the selected page number
-      showPage(links[i].textContent,studList);
+   //add click event listener which triggers a function based on the page selected
+      links[i].addEventListener('click', (event) => { 
+         
+         //remove class names from all elements
+         for(let j = 0; j < links.length; j += 1) {
+            links[j].className = "";
+         };
 
-      //change class name to active for 
-      event.target.className = "active";  
+         //run show page function based on the selected page number
+         showPage(links[i].textContent,studList);
 
-   });
+         //change class name to active for 
+         event.target.className = "active";  
+
+      });
+
+   };
 
 };
+
+addLink(); 
+
 /**********************************************************************************************************/
 //add search functionality 
 
@@ -155,6 +162,7 @@ searchButton.addEventListener('click', (event) => {
 searchMatch = []; 
 
 
+//remove existing pagination
 const pagin   = document.getElementsByClassName("pagination")[0]; 
 
 if(pagin) { 
@@ -163,21 +171,23 @@ if(pagin) {
 
 };
 
-studList.style.display = "none";
 
 
 // pick up all student list elements that match and push their index number to an array
    for(let k = 0; k < studNameList.length; k += 1) {   
 
+      studList[k].style.display = "none";
+
       if(studNameList[k].textContent.toUpperCase().includes(searchBox.value.toUpperCase())) {;
-          searchMatch.push(studList[k]); //how do I view contents this element in the console?
+          searchMatch.push(studList[k]); 
          };
    };
 
    //alter show page and pagination functions based on student list elements which matched the search value
+   //attach click event listener to all links
    showPage(1,searchMatch);
    pagination(searchMatch);
-
+   addLink(); 
 
 });
 
