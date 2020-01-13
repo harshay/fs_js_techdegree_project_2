@@ -6,7 +6,6 @@ Contact : rharshay@gmail.com
 Targeted Project Level : Exceeds Expectation
 ******************************************/
 
-
 /**********************************************************************************************************/
 
 //Get all student list elements  
@@ -15,13 +14,21 @@ const studList  = document.getElementsByClassName("student-item cf");
 const listDiv   = document.getElementsByClassName("student-list")[0]; 
 //Get all tags containing student names (used for search functionality)
 const studNameList  = document.getElementsByTagName("h3");
+// select element that contains the header and student list elements
+const highPage = document.getElementsByClassName("page")[0];
+//element will contain the message that will be displayed if the search does not return any results
+const noResultMessage = document.createElement("p"); 
+highPage.appendChild(noResultMessage); 
+noResultMessage.textContent = "No Results have been found";
 
 /**********************************************************************************************************/
 // create function which will display a maximum of 10 stuent list items from the page selected
 
 const showPage = (selectedPage,listIn) => {
 
- 
+   //hide no results message by default
+   noResultMessage.style.display = "none";
+
    //display a maximum of 10 students on the page when the page loads or when the page number is clicked
       const firstPage = selectedPage; 
    //highest student number (from the array) displayed on the selected page
@@ -30,18 +37,28 @@ const showPage = (selectedPage,listIn) => {
       const lowerLimit   = (upperLimit - 9); 
    //calculate number of students on the page 
       let studNum   = listIn.length; 
+
+   if(studNum === 0) { 
+      
+      //display no results message if no results are found. 
+      noResultMessage.style.display = "";
+
+   };
+   
+
+     
    //for loop will loop through all student items and only display the items within the calculated
    //limits above which change depending on the page selected
       for(let i = 0; i < studNum; i += 1) {
    
          let studListElem = listIn[i];
    
-         if(i >= lowerLimit  && i <= upperLimit)  {    
-            studListElem.style.display = ''; 
-         }
-         else {
-            studListElem.style.display = 'none';
-         }      
+            if(i >= lowerLimit  && i <= upperLimit)  {    
+               studListElem.style.display = ''; 
+            }
+            else {
+               studListElem.style.display = 'none';
+            }      
       }
    }
 /**********************************************************************************************************/
@@ -80,9 +97,9 @@ const pagination = (listIn) => {
       
       navListLink.textContent =  (i + 1);   
       
-      if(i === 0)  {
-         navListLink.className = "active"; 
-      }
+         if(i === 0)  {
+            navListLink.className = "active"; 
+         }
 
       navListItem.appendChild(navListLink);     
 
@@ -98,7 +115,7 @@ pagination(studList);
 //add click event listner to all nav links
 
 // get all links by tag name
-const addLink = () => {
+const addLink = (listIn) => {
 
    const links = document.getElementsByTagName("a"); 
 
@@ -113,7 +130,7 @@ const addLink = () => {
          };
 
          //run show page function based on the selected page number
-         showPage(links[i].textContent,studList);
+         showPage(links[i].textContent,listIn);
 
          //change class name to active for 
          event.target.className = "active";  
@@ -124,7 +141,7 @@ const addLink = () => {
 
 };
 
-addLink(); 
+addLink(studList); 
 
 /**********************************************************************************************************/
 //add search functionality 
@@ -161,17 +178,12 @@ searchButton.addEventListener('click', (event) => {
 // clear array for a new search
 searchMatch = []; 
 
-
 //remove existing pagination
 const pagin   = document.getElementsByClassName("pagination")[0]; 
 
 if(pagin) { 
-
  pagin.remove();
-
 };
-
-
 
 // pick up all student list elements that match and push their index number to an array
    for(let k = 0; k < studNameList.length; k += 1) {   
@@ -187,7 +199,7 @@ if(pagin) {
    //attach click event listener to all links
    showPage(1,searchMatch);
    pagination(searchMatch);
-   addLink(); 
+   addLink(searchMatch); 
 
 });
 
